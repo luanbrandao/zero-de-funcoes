@@ -7,17 +7,21 @@ import { AppComponent } from './app.component';
 //NGPRIME COMPONENTS
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MenubarModule} from 'primeng/menubar';
+import { ZeroDeFuncoesModule } from './pages/zero-de-funcoes/zero-de-funcoes.module';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,    
     AppRoutingModule,
-    MenubarModule
+    MenubarModule,
+    ZeroDeFuncoesModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
