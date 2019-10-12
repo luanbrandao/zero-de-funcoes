@@ -12,6 +12,8 @@ import {PanelModule} from 'primeng/panel';
 import {CardModule} from 'primeng/card';
 import { FormsModule } from '@angular/forms';
 
+// npm install @angular/cdk --save
+
 @NgModule({
   declarations: [
     AppComponent,

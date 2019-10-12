@@ -8,7 +8,7 @@ import {CardModule} from 'primeng/card';
 import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
 import {ButtonModule} from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-
+import {TableModule} from 'primeng/table';
 @NgModule({
   declarations: [BisseccaoComponent],
   imports: [
@@ -18,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     PanelModule,
     AccordionModule,
     ButtonModule,
-    FormsModule
+    FormsModule,
+    TableModule
   ],
   exports:[BisseccaoComponent]
 })

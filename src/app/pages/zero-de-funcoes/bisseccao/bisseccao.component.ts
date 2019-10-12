@@ -17,6 +17,14 @@ export class BisseccaoComponent implements OnInit {
     numero_interacoes : 15
   }
   
+  cars = [
+    { field: 'vin', header: 'Vin' },
+    { field: 'year', header: 'Year' },
+    { field: 'brand', header: 'Brand' },
+    { field: 'color', header: 'Color' },
+    { field: 'color', header: 'Color' }
+];
+
   table = [];
   // table = [];
   constructor() { 
@@ -94,6 +102,7 @@ export class BisseccaoComponent implements OnInit {
 
 
 
+    console.log(this.table);
     console.table(this.table);
     
   }
