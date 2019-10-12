@@ -158,6 +158,10 @@ options = {
 
     this.table = [];
     this.data = [];
+    this.data2 = [];
+
+    this.pontosMedios = [];
+    this.f_pontosMedios = [];
 
     this.atualizar_status();
   }
