@@ -25,12 +25,13 @@ options = {
     inicio_intervalo : null,
     fim_intervalo : null,
     chute_inicial: null,
-    error : 0,
+    precisao : 0.0001,
     funcao : null,
     numero_interacoes : 10
   }
-  entradaSalva;
-  ;
+
+  entradaSalva = {inicio : 0 , fim : 0 };
+  
   
     status_complto = false;
  
@@ -44,7 +45,8 @@ options = {
 
   submitForm ()  {
     console.log("intervaloA => " , this.entrada);   
-    this.entradaSalva = this.entrada;
+    this.entradaSalva.inicio = this.entrada.inicio_intervalo;
+    this.entradaSalva.fim = this.entrada.fim_intervalo;
     
 
 
@@ -54,7 +56,17 @@ options = {
     
 
     let interacao = 1;
-    while ( interacao <= this.entrada.numero_interacoes ) {
+
+    const possuiRaiz = this.possuiRaiz(
+      this.entrada.inicio_intervalo , this.entrada.fim_intervalo
+    );
+
+    if( !possuiRaiz ) {
+      alert("Não possui raiz!!!");
+      return 0;
+    } 
+
+    while ( interacao <= this.entrada.numero_interacoes  ) {
 
       let coluna = {
         interacao : interacao,
@@ -68,15 +80,9 @@ options = {
       
       
 
-      const possuiRaiz = this.possuiRaiz(
-        this.entrada.inicio_intervalo , this.entrada.fim_intervalo
-      );
-  
+      
     
-      if( !possuiRaiz ) {
-        alert("Não possui raiz!!!");
-        return 0;
-      }
+      
       
       // tem que ser antes de atualiza os intervalos
       coluna.erro_da_iteracao = this.erro_da_iteracao(
@@ -90,7 +96,9 @@ options = {
 
       const f_de_c = this.f_novo_ponto_medio( novo_ponto_medio );
 
-        (f_de_c  < 0) ? 
+      const atualizarAouB = this.atualizarIntervalor( coluna.a , f_de_c);
+      
+        ( atualizarAouB ) ? 
            this.entrada.inicio_intervalo = novo_ponto_medio :
            this.entrada.fim_intervalo = novo_ponto_medio;
 
@@ -104,6 +112,13 @@ options = {
 
 
           this.table.push(coluna);
+
+          if( this.calcular_precissao(  coluna.erro_da_iteracao , this.entrada.precisao) )
+          {
+            alert("Parada por precissão!!")          
+            break;
+          }
+
           interacao++;
           
         }
@@ -115,6 +130,8 @@ options = {
         this.gerar_grafico()
         this.atualizar_status();
      
+        
+
   }
 
   reiniciar(){
@@ -122,7 +139,7 @@ options = {
       inicio_intervalo : null,
       fim_intervalo : null,
       chute_inicial: null,
-      error : 0,
+      precisao : 0.0001,
       funcao : null,
       numero_interacoes : 10
     }
@@ -136,22 +153,33 @@ options = {
   atualizar_status() {
     this.status_complto = !this.status_complto;
   }
-  possuiRaiz = (inicio_intervalo , fim_intervalo) => 
-    this.funcao(inicio_intervalo) *  this.funcao(fim_intervalo) < 0
+  possuiRaiz = (inicio_intervalo , fim_intervalo) => {
+    console.log("raizes => " ,   this.funcao(inicio_intervalo) ,  this.funcao(fim_intervalo))
+      return (this.funcao(inicio_intervalo) *  this.funcao(fim_intervalo)) < 0
+
+  }
 
   novo_ponto_medio = (a,b) => (a+b) / 2;
 
   f_novo_ponto_medio = ( c ) => this.funcao(c) ;
   
-  funcao = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( valorIntervalor ) - 2;
+  // funcao = ( valorIntervalor )  => ( Math.pow(2.71828 ,valorIntervalor) ) - ( valorIntervalor ) - 2;
+  // funcao = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( valorIntervalor ) - 2;
+  funcao = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 3;
   
   atualizarErroAbsoluto = ( c_anterior , c , erro_da_iteracao ) => {
           return Math.abs(c_anterior - c) <= ( erro_da_iteracao  )
   }
 
+  atualizarIntervalor = ( f_a, f_c) =>  (this.funcao(f_a) *  f_c ) > 0;
+
   erro_da_iteracao = ( inicio_intervalo , fim_intervalo, interacao)  => {
-    // console.log("error" , inicio_intervalo , fim_intervalo, (Math.pow(2 , interacao)) )
-    return ( (fim_intervalo - inicio_intervalo   ) / (Math.pow(2 , interacao)) )
+    // return ( (fim_intervalo - inicio_intervalo   ) / (Math.pow(2 , interacao)) )
+    return ( (fim_intervalo - inicio_intervalo   ) / 2 )
+  }
+
+  calcular_precissao(erro , precisao) {
+      return erro < precisao;
   }
 
   gerar_grafico(){
@@ -161,13 +189,13 @@ options = {
       datasets: [
           {
               label: 'A',
-              data: [-2, 2]
+              data: [this.entradaSalva.inicio, this.entradaSalva.fim]
           },
           {
               label: 'B',
               data: [
-                this.funcao(this.entradaSalva.inicio_intervalo),
-                this.funcao(this.entradaSalva.fim_intervalo),
+                this.funcao( this.entradaSalva.inicio ),
+                this.funcao( this.entradaSalva.fim ),
               ],
               backgroundColor: [  '#FF6347', '#36A2EB', '#FFCE56' , , '#FF00FF' , '#ADFF2F' , '#FFA500'],
           }
