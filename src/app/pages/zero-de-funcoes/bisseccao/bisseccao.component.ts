@@ -9,6 +9,7 @@ import { BisseccaoModel, Bisseccoes,  } from 'src/app/models/bisseccao.model';
 export class BisseccaoComponent implements OnInit {
 
   data ;
+  data2 ;
 
 options = {
   title: {
@@ -29,6 +30,9 @@ options = {
     funcao : null,
     numero_interacoes : 10
   }
+
+  pontosMedios = [];
+  f_pontosMedios = [];
 
   entradaSalva = {inicio : 0 , fim : 0 };
   
@@ -66,6 +70,8 @@ options = {
       return 0;
     } 
 
+
+
     while ( interacao <= this.entrada.numero_interacoes  ) {
 
       let coluna = {
@@ -98,6 +104,8 @@ options = {
 
       const atualizarAouB = this.atualizarIntervalor( coluna.a , f_de_c);
       
+      
+
         ( atualizarAouB ) ? 
            this.entrada.inicio_intervalo = novo_ponto_medio :
            this.entrada.fim_intervalo = novo_ponto_medio;
@@ -122,7 +130,11 @@ options = {
           interacao++;
           
         }
-        
+      
+        this.pontosMedios.push(this.table[0].novo_ponto_medio);
+        this.pontosMedios.push(this.table[this.table.length-1].novo_ponto_medio);
+        this.f_pontosMedios.push(this.table[0].f_novo_ponto_medio);
+        this.f_pontosMedios.push(this.table[this.table.length-1].f_novo_ponto_medio);
         
         
         console.log(this.table);
@@ -184,15 +196,14 @@ options = {
 
   gerar_grafico(){
 
-    this.data = {  
-      labels: [0,1,2,3,4,5,6,7,8,9,10],
+    
+
+    this.data = {        
       datasets: [
-          {
-              label: 'A',
+          {              
               data: [this.entradaSalva.inicio, this.entradaSalva.fim]
           },
-          {
-              label: 'B',
+          {              
               data: [
                 this.funcao( this.entradaSalva.inicio ),
                 this.funcao( this.entradaSalva.fim ),
@@ -202,7 +213,24 @@ options = {
       ]    
   }
 
+  this.gerar_grafico_pontos_medios()
+  }
+
+  gerar_grafico_pontos_medios(){
+
+    console.log("pontos m => " , this.pontosMedios);
+    console.log("pontos m  f => " , this.f_pontosMedios);
+    this.data2 = {        
+      datasets: [
+          {             
+            data: this.pontosMedios
+          },
+          {              
+            data: this.f_pontosMedios,
+          }
+      ]    
+  }
+
   }
 }
 
-    
