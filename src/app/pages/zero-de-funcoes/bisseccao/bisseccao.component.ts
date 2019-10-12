@@ -8,7 +8,20 @@ import { BisseccaoModel, Bisseccoes,  } from 'src/app/models/bisseccao.model';
 })
 export class BisseccaoComponent implements OnInit {
 
-  entrada = {
+  data ;
+
+options = {
+  title: {
+      display: true,
+      text: 'Gráfico',
+      fontSize: 16
+  },
+  legend: {
+      position: 'bottom'
+  }
+};
+
+  entrada= {
     inicio_intervalo : null,
     fim_intervalo : null,
     chute_inicial: null,
@@ -16,15 +29,9 @@ export class BisseccaoComponent implements OnInit {
     funcao : null,
     numero_interacoes : 10
   }
+  entradaSalva;
+  ;
   
-  cars = [
-    { field: 'vin', header: 'Vin' },
-    { field: 'year', header: 'Year' },
-    { field: 'brand', header: 'Brand' },
-    { field: 'color', header: 'Color' },
-    { field: 'color', header: 'Color' }
-];
-
     status_complto = false;
  
   table = [];
@@ -37,7 +44,7 @@ export class BisseccaoComponent implements OnInit {
 
   submitForm ()  {
     console.log("intervaloA => " , this.entrada);   
-    
+    this.entradaSalva = this.entrada;
     
 
 
@@ -105,7 +112,7 @@ export class BisseccaoComponent implements OnInit {
         
         console.log(this.table);
         console.table(this.table);
-
+        this.gerar_grafico()
         this.atualizar_status();
      
   }
@@ -121,6 +128,7 @@ export class BisseccaoComponent implements OnInit {
     }
 
     this.table = [];
+    this.data = [];
 
     this.atualizar_status();
   }
@@ -145,4 +153,28 @@ export class BisseccaoComponent implements OnInit {
     // console.log("error" , inicio_intervalo , fim_intervalo, (Math.pow(2 , interacao)) )
     return ( (fim_intervalo - inicio_intervalo   ) / (Math.pow(2 , interacao)) )
   }
+
+  gerar_grafico(){
+
+    this.data = {  
+      labels: [0,1,2,3,4,5,6,7,8,9,10],
+      datasets: [
+          {
+              label: 'A',
+              data: [-2, 2]
+          },
+          {
+              label: 'B',
+              data: [
+                this.funcao(this.entradaSalva.inicio_intervalo),
+                this.funcao(this.entradaSalva.fim_intervalo),
+              ],
+              backgroundColor: [  '#FF6347', '#36A2EB', '#FFCE56' , , '#FF00FF' , '#ADFF2F' , '#FFA500'],
+          }
+      ]    
+  }
+
+  }
 }
+
+    
