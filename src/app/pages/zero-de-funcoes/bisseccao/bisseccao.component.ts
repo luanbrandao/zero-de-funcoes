@@ -14,7 +14,7 @@ export class BisseccaoComponent implements OnInit {
     chute_inicial: null,
     error : 0,
     funcao : null,
-    numero_interacoes : 15
+    numero_interacoes : 10
   }
   
   cars = [
@@ -25,6 +25,8 @@ export class BisseccaoComponent implements OnInit {
     { field: 'color', header: 'Color' }
 ];
 
+    status_complto = false;
+ 
   table = [];
   // table = [];
   constructor() { 
@@ -96,17 +98,36 @@ export class BisseccaoComponent implements OnInit {
 
           this.table.push(coluna);
           interacao++;
+          
+        }
+        
+        
+        
+        console.log(this.table);
+        console.table(this.table);
 
+        this.atualizar_status();
+     
+  }
 
+  reiniciar(){
+    this.entrada = {
+      inicio_intervalo : null,
+      fim_intervalo : null,
+      chute_inicial: null,
+      error : 0,
+      funcao : null,
+      numero_interacoes : 10
     }
 
+    this.table = [];
 
-
-    console.log(this.table);
-    console.table(this.table);
-    
+    this.atualizar_status();
   }
   
+  atualizar_status() {
+    this.status_complto = !this.status_complto;
+  }
   possuiRaiz = (inicio_intervalo , fim_intervalo) => 
     this.funcao(inicio_intervalo) *  this.funcao(fim_intervalo) < 0
 
