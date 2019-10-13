@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { BisseccaoModel, Bisseccoes,  } from 'src/app/models/bisseccao.model';
+import {SelectItem} from 'primeng/api';
+
 @Component({
   selector: 'app-bisseccao',
   templateUrl: './bisseccao.component.html',
   styleUrls: ['./bisseccao.component.css']
 })
-export class BisseccaoComponent implements OnInit {
-
+export class BisseccaoComponent {
+  selectedCity1;
   data ;
   data2 ;
+
+  funcoes: SelectItem[];
 
 options = {
   title: {
@@ -22,13 +26,13 @@ options = {
   }
 };
 
-  entrada= {
+  entrada = {
     inicio_intervalo : null,
     fim_intervalo : null,
     chute_inicial: null,
     precisao : 0.0001,
-    funcao : null,
-    numero_interacoes : 10
+    funcao : 1,
+    numero_interacoes : 20
   }
 
   pontosMedios = [];
@@ -37,25 +41,24 @@ options = {
   entradaSalva = {inicio : 0 , fim : 0 };
   
   
-    status_complto = false;
- 
+  status_complto = false;
   table = [];
-  // table = [];
-  constructor() { 
-  console.log("tab " , this.table)
-}
-  ngOnInit() {
+
+  constructor() {
+       this.funcoes = [
+            {label:'f(x) = e^x - x - 2', value:1},
+            {label:'f(x) = x^3 - x - 2', value:2},
+            {label:'f(x) = x^3 - 9*x + 3', value:3},            
+        ];
   }
+
+
+
 
   submitForm ()  {
     console.log("intervaloA => " , this.entrada);   
     this.entradaSalva.inicio = this.entrada.inicio_intervalo;
     this.entradaSalva.fim = this.entrada.fim_intervalo;
-    
-
-
-    console.log("f1 => ", this.funcao(this.entrada.inicio_intervalo) + '  ---- f2 ' 
-    , this.funcao(this.entrada.fim_intervalo)  )
     
     
 
@@ -67,6 +70,7 @@ options = {
 
     if( !possuiRaiz ) {
       alert("Não possui raiz!!!");
+      this.reiniciar();
       return 0;
     } 
 
@@ -82,13 +86,6 @@ options = {
         f_novo_ponto_medio : 0,
         erro_da_iteracao: null
       };
-        
-      
-      
-
-      
-    
-      
       
       // tem que ser antes de atualiza os intervalos
       coluna.erro_da_iteracao = this.erro_da_iteracao(
@@ -123,7 +120,7 @@ options = {
 
           if( this.calcular_precissao(  coluna.erro_da_iteracao , this.entrada.precisao) )
           {
-            alert("Parada por precissão!!")          
+            alert("Parada por precissão!!")                   
             break;
           }
 
@@ -137,23 +134,29 @@ options = {
         this.f_pontosMedios.push(this.table[this.table.length-1].f_novo_ponto_medio);
         
         
-        console.log(this.table);
         console.table(this.table);
         this.gerar_grafico()
+        this.gerar_grafico_pontos_medios()
         this.atualizar_status();
      
         
 
   }
+  
+  
+  atualizar_status() {
+    this.status_complto = !this.status_complto;
+  }
 
   reiniciar(){
+
     this.entrada = {
       inicio_intervalo : null,
       fim_intervalo : null,
       chute_inicial: null,
       precisao : 0.0001,
-      funcao : null,
-      numero_interacoes : 10
+      funcao : 1,
+      numero_interacoes :  20
     }
 
     this.table = [];
@@ -163,44 +166,56 @@ options = {
     this.pontosMedios = [];
     this.f_pontosMedios = [];
 
+    this.entradaSalva = {inicio : 0 , fim : 0 };
+
     this.atualizar_status();
   }
-  
-  atualizar_status() {
-    this.status_complto = !this.status_complto;
-  }
-  possuiRaiz = (inicio_intervalo , fim_intervalo) => {
-    console.log("raizes => " ,   this.funcao(inicio_intervalo) ,  this.funcao(fim_intervalo))
-      return (this.funcao(inicio_intervalo) *  this.funcao(fim_intervalo)) < 0
 
-  }
+  possuiRaiz = (inicio_intervalo , fim_intervalo) => 
+       (this.funcao_escolhida(inicio_intervalo) *  this.funcao_escolhida(fim_intervalo)) < 0
+  
 
   novo_ponto_medio = (a,b) => (a+b) / 2;
 
-  f_novo_ponto_medio = ( c ) => this.funcao(c) ;
   
-  // funcao = ( valorIntervalor )  => ( Math.pow(2.71828 ,valorIntervalor) ) - ( valorIntervalor ) - 2;
-  // funcao = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( valorIntervalor ) - 2;
-  funcao = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 3;
+  funcao1 = ( valorIntervalor )  => ( Math.pow(2.71828 ,valorIntervalor) ) - ( valorIntervalor ) - 2;
+  funcao2 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( valorIntervalor ) - 2;
+  funcao3 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 3;
+
+  funcao_escolhida( x )  {
+    
+  let select = this.entrada.funcao;
+    switch ( select ){
+      case 1:
+        return this.funcao1(x);
+      break;
+      case 2:
+        return this.funcao2(x);
+      break;
+      case 3:
+        return this.funcao3(x);
+      break;
+    }
+  }
+
+
+  f_novo_ponto_medio = ( ponto_medio ) => this.funcao_escolhida( ponto_medio ) ;
   
   atualizarErroAbsoluto = ( c_anterior , c , erro_da_iteracao ) => {
           return Math.abs(c_anterior - c) <= ( erro_da_iteracao  )
   }
 
-  atualizarIntervalor = ( f_a, f_c) =>  (this.funcao(f_a) *  f_c ) > 0;
+  atualizarIntervalor = ( f_a, f_c) =>  (this.funcao_escolhida(f_a) *  f_c ) > 0;
 
   erro_da_iteracao = ( inicio_intervalo , fim_intervalo, interacao)  => {
     // return ( (fim_intervalo - inicio_intervalo   ) / (Math.pow(2 , interacao)) )
     return ( (fim_intervalo - inicio_intervalo   ) / 2 )
   }
 
-  calcular_precissao(erro , precisao) {
-      return erro < precisao;
-  }
+  calcular_precissao = (erro , precisao) =>   erro < precisao
+
 
   gerar_grafico(){
-
-    
 
     this.data = {        
       datasets: [
@@ -209,21 +224,17 @@ options = {
           },
           {              
               data: [
-                this.funcao( this.entradaSalva.inicio ),
-                this.funcao( this.entradaSalva.fim ),
+                this.funcao_escolhida( this.entradaSalva.inicio ),
+                this.funcao_escolhida( this.entradaSalva.fim ),
               ],
               backgroundColor: [  '#FF6347', '#36A2EB', '#FFCE56' , , '#FF00FF' , '#ADFF2F' , '#FFA500'],
           }
       ]    
-  }
-
-  this.gerar_grafico_pontos_medios()
+  
+    } 
   }
 
   gerar_grafico_pontos_medios(){
-
-    console.log("pontos m => " , this.pontosMedios);
-    console.log("pontos m  f => " , this.f_pontosMedios);
     this.data2 = {        
       datasets: [
           {             
@@ -233,8 +244,8 @@ options = {
             data: this.f_pontosMedios,
           }
       ]    
+    }
   }
 
-  }
 }
 

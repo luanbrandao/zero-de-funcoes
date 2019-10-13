@@ -10,6 +10,7 @@ import {ButtonModule} from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import {TableModule} from 'primeng/table';
 import {ChartModule} from 'primeng/chart';
+import {ListboxModule} from 'primeng/listbox';
 @NgModule({
   declarations: [BisseccaoComponent],
   imports: [
@@ -21,7 +22,8 @@ import {ChartModule} from 'primeng/chart';
     ButtonModule,
     FormsModule,
     TableModule,
-    ChartModule
+    ChartModule,
+    ListboxModule
   ],
   exports:[BisseccaoComponent]
 })
