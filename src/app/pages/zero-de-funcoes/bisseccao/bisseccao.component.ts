@@ -32,7 +32,8 @@ options = {
     chute_inicial: null,
     precisao : 0.0001,
     funcao : 1,
-    numero_interacoes : 20
+    numero_interacoes : 20,
+    funcao_escrita : ''
   }
 
   pontosMedios = [];
@@ -49,6 +50,7 @@ options = {
             {label:'f(x) = e^x - x - 2', value:1},
             {label:'f(x) = x^3 - x - 2', value:2},
             {label:'f(x) = x^3 - 9*x + 3', value:3},            
+            {label:'f(x) = ???', value:0},            
         ];
   }
 
@@ -116,14 +118,14 @@ options = {
 
 
 
-          this.table.push(coluna);
-
+          
           if( this.calcular_precissao(  coluna.erro_da_iteracao , this.entrada.precisao) )
           {
             alert("Parada por precissão!!")                   
             break;
           }
-
+          
+          this.table.push(coluna);
           interacao++;
           
         }
@@ -156,7 +158,8 @@ options = {
       chute_inicial: null,
       precisao : 0.0001,
       funcao : 1,
-      numero_interacoes :  20
+      numero_interacoes :  20,
+      funcao_escrita : ''
     }
 
     this.table = [];
@@ -181,6 +184,23 @@ options = {
   funcao1 = ( valorIntervalor )  => ( Math.pow(2.71828 ,valorIntervalor) ) - ( valorIntervalor ) - 2;
   funcao2 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( valorIntervalor ) - 2;
   funcao3 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 3;
+  
+  funcao_escrita = ( funcao , x)  => {
+    console.log('escrita aqui');
+    const cos = x => Math.cos(x);
+    const sen = x => Math.sin(x);    
+    const e = 2.71828;
+    const pow = (x,y) => Math.pow(x,y)
+    const abs = (x) => Math.abs(x)
+    const sqrt = (x) => Math.sqrt(x)
+
+    funcao = funcao.replace("E",  e);    
+    funcao = funcao.replace("x",  x);
+
+    console.log("funcao =>", funcao)
+    return eval(funcao);
+  }
+
 
   funcao_escolhida( x )  {
     
@@ -194,6 +214,9 @@ options = {
       break;
       case 3:
         return this.funcao3(x);
+      break;
+      case 0:
+        return this.funcao_escrita(this.entrada.funcao_escrita , x);
       break;
     }
   }
