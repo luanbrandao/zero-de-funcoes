@@ -1,0 +1,125 @@
+<p-panel header="Método do Ponto Fixo">
+
+    <p-card>
+        <p-header>
+            Entradas
+        </p-header>
+
+
+        
+
+
+        <h3 class="first">Intervalo</h3>
+
+        <form #form="ngForm" action="">
+
+
+
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-4">
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"><i style="line-height: 1.25;">Inicio Intervalo</i></span>
+                        <input [(ngModel)]="entrada.inicio_intervalo" name="inicio_intervalo" type="number" pInputText
+                            placeholder="Inicio Intervalo">
+                    </div>
+                </div>
+
+                <div class="ui-g-12 ui-md-4">
+                    <div class="ui-inputgroup">
+
+                        <span class="ui-inputgroup-addon"><i style="line-height: 1.25;">Fim Intervalo</i></span>
+                        <input [(ngModel)]="entrada.fim_intervalo" name="fim_intervalo" type="number" pInputText
+                            placeholder="Fim Intervalo">
+                    </div>
+                </div>
+
+                <div class="ui-g-12 ui-md-4">
+                    <div class="ui-inputgroup">
+
+                        <span class="ui-inputgroup-addon"><i style="line-height: 1.25;">Chute Inicial</i></span>
+                        <input [(ngModel)]="entrada.chute_inicial" name="chute_inicial" type="number" pInputText
+                            placeholder="Chute Inicial">
+                    </div>
+                </div>
+
+
+            </div>
+
+            <h3 class="first">Entradas </h3>
+
+            <div class="ui-g ui-fluid">
+
+                <div class="ui-g-12 ui-md-4">
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"><i style="line-height: 1.25;">Interrações</i></span>
+                        <input type="text" pInputText placeholder="numero_interacoes" [(ngModel)]="entrada.numero_interacoes"
+                            name="numero_interacoes" type="number">
+                    </div>
+                </div>
+
+                <div class="ui-g-12 ui-md-4">
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"><i style="line-height: 1.25;">Precisão</i></span>
+                        <input type="text" pInputText placeholder="Precisão" [(ngModel)]="entrada.precisao"
+                            name="error" type="number">
+                    </div>
+                </div>
+
+                <div class="ui-g-12 ui-md-4">
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"><i style="line-height: 1.25;">Função</i></span>
+                        <p-listbox [options]="funcoes"  value='1' name="funcao"  [(ngModel)]="entrada.funcao"></p-listbox>
+                        <!-- <span class="ui-inputgroup-addon"><i style="line-height: 1.25;">Função</i></span>
+                        <input type="text" pInputText placeholder="Função" [(ngModel)]="entrada.funcao" name="funcao"> -->
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+
+
+
+        <button *ngIf="!status_complto" (click)="submitForm()" pButton type="button" label="submitForm"></button>
+        <button *ngIf="status_complto" (click)="reiniciar()" pButton type="button" label="Restart"></button>
+    </p-card>
+
+    <!-- <p-button label="Click" ></p-button> -->
+
+
+    <div *ngIf="table.length > 0">
+
+        <p-table [value]="table">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Interação</th>               
+                    <th>F(x)</th>
+                    <th>F'(x)/th>
+                    <th>Error</th>
+                </tr>
+
+            </ng-template>
+
+            <ng-template pTemplate="body" let-t>
+                    <tr>
+                        <td>{{t.interacao}}</td>                        
+                        <td>{{t.ponto_medio}}</td>
+                        <td>{{t.derivada}}</td>
+                        <td>{{t.erro_da_iteracao}}</td>
+                        
+                        
+                    </tr>
+                </ng-template>
+
+        </p-table>
+    </div>
+
+</p-panel>
+
+
+<!-- <p-chart type="line" [data]="data"></p-chart> -->
+
+
+<p-chart *ngIf="data" type="line" [data]="data" [options]="options" width="400px" height="400px" [responsive]="false"></p-chart>
+<p-chart *ngIf="data2" type="line" [data]="data2"  width="400px" height="400px" [responsive]="false"></p-chart>

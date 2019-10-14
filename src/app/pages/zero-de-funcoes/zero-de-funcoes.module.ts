@@ -11,8 +11,9 @@ import { FormsModule } from '@angular/forms';
 import {TableModule} from 'primeng/table';
 import {ChartModule} from 'primeng/chart';
 import {ListboxModule} from 'primeng/listbox';
+import { PontoFixoComponent } from './ponto-fixo/ponto-fixo.component';
 @NgModule({
-  declarations: [BisseccaoComponent],
+  declarations: [BisseccaoComponent, PontoFixoComponent],
   imports: [
     CommonModule,
     ZeroDeFuncoesRoutingModule,
@@ -25,6 +26,6 @@ import {ListboxModule} from 'primeng/listbox';
     ChartModule,
     ListboxModule
   ],
-  exports:[BisseccaoComponent]
+  exports:[BisseccaoComponent,PontoFixoComponent]
 })
 export class ZeroDeFuncoesModule { }
