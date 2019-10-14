@@ -25,7 +25,7 @@ export class AppComponent {
               items: [
                   {label: 'BISSECÇÃO',command: () => this.goUrl('/bisseccao') } ,
                   {label: 'PONTO FIXO',command: () => this.goUrl('/ponto-fixo') } ,
-                  {label: 'NEWTON'},
+                  {label: 'NEWTON',command: () => this.goUrl('/newton') } ,
                   {label: 'Secante'}
               ],
               

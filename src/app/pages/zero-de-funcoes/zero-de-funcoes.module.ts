@@ -12,8 +12,9 @@ import {TableModule} from 'primeng/table';
 import {ChartModule} from 'primeng/chart';
 import {ListboxModule} from 'primeng/listbox';
 import { PontoFixoComponent } from './ponto-fixo/ponto-fixo.component';
+import { NewtonComponent } from './newton/newton.component';
 @NgModule({
-  declarations: [BisseccaoComponent, PontoFixoComponent],
+  declarations: [BisseccaoComponent, PontoFixoComponent, NewtonComponent],
   imports: [
     CommonModule,
     ZeroDeFuncoesRoutingModule,
