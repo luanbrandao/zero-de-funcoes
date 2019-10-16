@@ -6,7 +6,7 @@
         </p-header>
 
 
-        
+
 
 
         <h3 class="first">Intervalo</h3>
@@ -93,22 +93,23 @@
 
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Interação</th>               
+                    <th>Interação</th>
+                    <th>x</th>
                     <th>F(x)</th>
-                    <th>F'(x)/th>
-                    <th>Error</th>
+                    <th>Derivada</th>
                 </tr>
 
             </ng-template>
 
             <ng-template pTemplate="body" let-t>
                     <tr>
-                        <td>{{t.interacao}}</td>                        
-                        <td>{{t.ponto_medio}}</td>
+                        <td>{{t.interacao}}</td>
+                        <td>{{t.x}}</td>
+                        <td>{{t.f_x}}</td>
                         <td>{{t.derivada}}</td>
-                        <td>{{t.erro_da_iteracao}}</td>
-                        
-                        
+
+
+
                     </tr>
                 </ng-template>
 

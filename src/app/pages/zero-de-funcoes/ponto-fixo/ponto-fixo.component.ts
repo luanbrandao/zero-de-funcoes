@@ -38,16 +38,16 @@ options = {
   f_pontosMedios = [];
 
   entradaSalva = {inicio : 0 , fim : 0 };
-  
-  
+
+
   status_complto = false;
   table = [];
 
   constructor() {
        this.funcoes = [
-            {label:'f(x) = x^3 - 9*x + 2', value:1},            
+            {label:'f(x) = x^3 - 9*x + 5', value:1},
             {label:'f(x) = x^3 - x - 1', value:2},
-            
+
         ];
   }
 
@@ -55,72 +55,79 @@ options = {
 
 
   submitForm ()  {
-    console.log("intervaloA => " , this.entrada);           
+    console.log("intervaloA => " , this.entrada);
     let interacao = 1;
 
-  
+
 
         let coluna = {
-            interacao : interacao,            
-            ponto_medio : (this.entrada.inicio_intervalo+this.entrada.fim_intervalo)/2,            
-            derivada: 0
+            interacao : interacao,
+            x : this.entrada.chute_inicial,
+            derivada: 0,
+            f_x : 0,
+            // derivada: 0
         };
 
-          
-          
-      while ( interacao <= this.entrada.numero_interacoes  ) {
-           
-      
 
-      const derivada = this.funcao_escolhida(coluna.ponto_medio)
-      console.log("derivada => " , derivada);
-      
+
+      while ( interacao <= this.entrada.numero_interacoes  ) {
+
+
+
+      const f_x = this.funcao_escolhida(coluna.x)
+      console.log("f_x => " , f_x);
+
+      // const derivada =  this.derivada_escolhida(coluna.f_x);
+      // console.log("derivada_x => " , derivada )
+      // coluna.derivada = derivada;
+
+
+      const derivada =  this.derivada_escolhida(coluna.x);
+      // console.log("derivada_x => " , derivada )
+
       let linha = {
-        interacao : interacao,            
-        ponto_medio :coluna.ponto_medio,            
+        interacao : interacao,
+        x :coluna.x,
+        f_x: f_x,
         derivada: derivada
       };
+      coluna.x = derivada;
 
-      coluna.derivada = derivada;
-      
-     
 
-      if( this.calcular_precissao(derivada , this.entrada.precisao) ){
+      if( this.calcular_precissao(f_x , this.entrada.precisao) ){
         alert("paro no erro")
         interacao = this.entrada.numero_interacoes +1;
       }
 
-    
+
       console.log("coluna: " , coluna);
       this.table.push(linha);
 
-      
-      
-      const fX =  this.derivada_escolhida(coluna.ponto_medio);
-      console.log("derivada_x => " , fX )
-      coluna.ponto_medio = fX;
+
+
+
 
       interacao++;
-      
-          
+
+
       }
-      
+
         // this.pontosMedios.push(this.table[0].novo_ponto_medio);
         // this.pontosMedios.push(this.table[this.table.length-1].novo_ponto_medio);
         // this.f_pontosMedios.push(this.table[0].f_novo_ponto_medio);
         // this.f_pontosMedios.push(this.table[this.table.length-1].f_novo_ponto_medio);
-        
-        
+
+
         console.table(this.table);
         this.gerar_grafico()
         // this.gerar_grafico_pontos_medios()
         this.atualizar_status();
-     
-        
+
+
 
   }
-  
-  
+
+
   atualizar_status() {
     this.status_complto = !this.status_complto;
   }
@@ -149,28 +156,28 @@ options = {
     this.atualizar_status();
   }
 
-  possuiRaiz = (inicio_intervalo , fim_intervalo) => 
+  possuiRaiz = (inicio_intervalo , fim_intervalo) =>
        (this.funcao_escolhida(inicio_intervalo) *  this.funcao_escolhida(fim_intervalo)) < 0
-  
+
 
   novo_ponto_medio = (a,b) => (a+b) / 2;
 
-  
+
   funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 5;
   derivada_f1 = ( valorIntervalor )  => ( ( Math.pow(valorIntervalor ,3) ) + 5 ) / 9;
-  
+
 
   funcao2 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( valorIntervalor ) - 1;
   derivada_f2 = ( valorIntervalor )  => (Math.cbrt(valorIntervalor+1))
-  
+
 
   funcao_escolhida( x )  {
-    
+
   let select = this.entrada.funcao;
     switch ( select ){
       case 1:
         return this.funcao1(x);
-      break;      
+      break;
       case 2:
         return this.funcao2(x);
       break;
@@ -179,7 +186,7 @@ options = {
   }
 
   derivada_escolhida( x )  {
-    
+
   let select = this.entrada.funcao;
     switch ( select ){
       case 1:
@@ -188,13 +195,13 @@ options = {
       case 2:
         return this.derivada_f2(x);
       break;
-      
+
 
     }
   }
 
-  
-  
+
+
 
   atualizarIntervalor = ( f_a, f_c) =>  (this.funcao_escolhida(f_a) *  f_c ) > 0;
 
@@ -204,33 +211,33 @@ options = {
 
   gerar_grafico(){
 
-    this.data = {        
+    this.data = {
       datasets: [
-          {              
+          {
               data: [this.entrada.inicio_intervalo, this.entrada.fim_intervalo]
           },
-          {              
+          {
               data: [
                 this.funcao_escolhida( this.entrada.inicio_intervalo ),
                 this.funcao_escolhida( this.entrada.fim_intervalo),
               ],
               backgroundColor: [  '#FF6347', '#36A2EB', '#FFCE56' , , '#FF00FF' , '#ADFF2F' , '#FFA500'],
           }
-      ]    
-  
-    } 
+      ]
+
+    }
   }
 
   gerar_grafico_pontos_medios(){
-    this.data2 = {        
+    this.data2 = {
       datasets: [
-          {             
+          {
             data: this.pontosMedios
           },
-          {              
+          {
             data: this.f_pontosMedios,
           }
-      ]    
+      ]
     }
   }
 
