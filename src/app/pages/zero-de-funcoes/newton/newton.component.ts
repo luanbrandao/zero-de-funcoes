@@ -38,17 +38,17 @@ options = {
   f_pontosMedios = [];
 
   entradaSalva = {inicio : 0 , fim : 0 };
-  
-  
+
+
   status_complto = false;
   table = [];
 
   constructor() {
        this.funcoes = [
-         {label:'f(x) = x^3 - 9*x + 3', value:1},            
+         {label:'f(x) = x^3 - 9*x + 5', value:1},
          {label:'f(x) = x^3 - x - 1', value:2},
-         {label:'f(x) = x - cos(x)', value:3},            
-            
+         {label:'f(x) = x - cos(x)', value:3},
+
         ];
   }
 
@@ -56,21 +56,21 @@ options = {
 
 
   submitForm ()  {
-    console.log("intervaloA => " , this.entrada);           
+    console.log("intervaloA => " , this.entrada);
     let interacao = 1;
 
-  
+
 
         let coluna = {
-            interacao : interacao,                        
+            interacao : interacao,
             aproximacao: this.entrada.chute_inicial
         };
 
-          
-          
+
+
       while ( interacao <= this.entrada.numero_interacoes  ) {
-           
-      
+
+
       const c = this.funcao_escolhida(coluna.aproximacao);
       const s = this.derivada_escolhida(coluna.aproximacao);
 
@@ -79,14 +79,14 @@ options = {
 
       const aproximacao = coluna.aproximacao - ( c/s )
       console.log("aproximacao => " , aproximacao);
-      
+
       let linha = {
-        interacao : interacao,            
-        ponto_medio :coluna.aproximacao,            
+        interacao : interacao,
+        ponto_medio :coluna.aproximacao,
         aproximacao: aproximacao
       };
 
-      
+
       console.log("linha => " , linha)
 
       if( this.parada(linha.ponto_medio , linha.aproximacao) ){
@@ -94,28 +94,36 @@ options = {
         interacao = this.entrada.numero_interacoes +1;
         break;
       }
-      
+
       coluna.aproximacao = aproximacao;
-    
+
       console.log("coluna: " , coluna);
-      this.table.push(linha);    
-      
 
 
-      interacao++;
-      
-          
+
+      const result = this.table.find( obj => obj.ponto_medio === linha.ponto_medio )
+
+      if( result ){
+        alert("Ja existe na tabela")
+        interacao = this.entrada.numero_interacoes +1;
+        break;
       }
-      
+
+      this.table.push(linha);
+      interacao++;
+
+
+      }
+
         console.table(this.table);
-        this.gerar_grafico()      
+        this.gerar_grafico()
         this.atualizar_status();
-     
-        
+
+
 
   }
-  
-  
+
+
   atualizar_status() {
     this.status_complto = !this.status_complto;
   }
@@ -144,30 +152,30 @@ options = {
     this.atualizar_status();
   }
 
-  possuiRaiz = (inicio_intervalo , fim_intervalo) => 
+  possuiRaiz = (inicio_intervalo , fim_intervalo) =>
        (this.funcao_escolhida(inicio_intervalo) *  this.funcao_escolhida(fim_intervalo)) < 0
-  
+
 
   novo_ponto_medio = (a,b) => (a+b) / 2;
 
-  
-  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 3;
+
+  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 5;
   derivada_f1 = ( valorIntervalor )  => ( 3 * ( Math.pow(valorIntervalor ,2) ) ) - 9;
-  
+
 
   funcao2 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( valorIntervalor ) - 1;
   derivada_f2 = ( valorIntervalor )  => (Math.cbrt(valorIntervalor+1))
-  
+
   funcao3 = ( valorIntervalor )  => valorIntervalor - Math.cos(valorIntervalor)
   derivada_f3 = ( valorIntervalor )  => 1 + Math.sin(valorIntervalor)
 
   funcao_escolhida( x )  {
-    
+
   let select = this.entrada.funcao;
     switch ( select ){
       case 1:
         return this.funcao1(x);
-      break;      
+      break;
       case 2:
         return this.funcao2(x);
       break;
@@ -179,7 +187,7 @@ options = {
   }
 
   derivada_escolhida( x )  {
-    
+
   let select = this.entrada.funcao;
     switch ( select ){
       case 1:
@@ -191,13 +199,13 @@ options = {
       case 3:
         return this.derivada_f3(x);
       break;
-      
+
 
     }
   }
 
-  
-  
+
+
 
   atualizarIntervalor = ( f_a, f_c) =>  (this.funcao_escolhida(f_a) *  f_c ) > 0;
 
@@ -207,33 +215,33 @@ options = {
 
   gerar_grafico(){
 
-    this.data = {        
+    this.data = {
       datasets: [
-          {              
+          {
               data: [this.entrada.inicio_intervalo, this.entrada.fim_intervalo]
           },
-          {              
+          {
               data: [
                 this.funcao_escolhida( this.entrada.inicio_intervalo ),
                 this.funcao_escolhida( this.entrada.fim_intervalo),
               ],
               backgroundColor: [  '#FF6347', '#36A2EB', '#FFCE56' , , '#FF00FF' , '#ADFF2F' , '#FFA500'],
           }
-      ]    
-  
-    } 
+      ]
+
+    }
   }
 
   gerar_grafico_pontos_medios(){
-    this.data2 = {        
+    this.data2 = {
       datasets: [
-          {             
+          {
             data: this.pontosMedios
           },
-          {              
+          {
             data: this.f_pontosMedios,
           }
-      ]    
+      ]
     }
   }
 
