@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent {
-    
+
   title = 'ZeroDeFuncoes';
   items: MenuItem[];
 
@@ -26,9 +26,9 @@ export class AppComponent {
                   {label: 'BISSECÇÃO',command: () => this.goUrl('/bisseccao') } ,
                   {label: 'PONTO FIXO',command: () => this.goUrl('/ponto-fixo') } ,
                   {label: 'NEWTON',command: () => this.goUrl('/newton') } ,
-                  {label: 'Secante'}
+                  {label: 'SECANTE', command: () => this.goUrl('/secante') }
               ],
-              
+
           },
           {
               label: 'Sistemas Lineares',
@@ -37,7 +37,7 @@ export class AppComponent {
                   {label: 'Delete', icon: 'pi pi-fw pi-trash'},
                   {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
               ],
-              
+
           }
       ];
   }
@@ -46,7 +46,7 @@ export class AppComponent {
       console.log('url => ', url);
    this.router.navigate([url]);
   }
-  
+
   onMenuClick(menu : MenuItem){
       console.log("menu => " , menu);
   }
