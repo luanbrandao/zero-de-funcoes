@@ -28,7 +28,7 @@ options = {
     inicio_intervalo : null,
     fim_intervalo : null,
     chute_inicial: 0,
-    precisao : 0.0001,
+    precisao : 0.0005,
     funcao : 1,
     numero_interacoes : 20,
     erro : 0
@@ -45,7 +45,7 @@ options = {
 
   constructor() {
        this.funcoes = [
-         {label:'f(x) = x^3 - 9*x + 5', value:1},
+         {label:'f(x) = x^3 - 9*x + 3', value:1},
          {label:'f(x) = x^3 - x - 1', value:2},
          {label:'f(x) = x - cos(x)', value:3},
 
@@ -71,8 +71,10 @@ options = {
       while ( interacao <= this.entrada.numero_interacoes  ) {
 
 
-      const c = this.funcao_escolhida(coluna.aproximacao);
-      const s = this.derivada_escolhida(coluna.aproximacao);
+      const c  = parseFloat(this.funcao_escolhida(coluna.aproximacao).toFixed(5));
+      const s = parseFloat(this.derivada_escolhida(coluna.aproximacao).toFixed(5));
+
+
 
       console.log('c => ' , c);
       console.log('s => ' , s);
@@ -162,7 +164,7 @@ options = {
   novo_ponto_medio = (a,b) => (a+b) / 2;
 
 
-  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 5;
+  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 3;
   derivada_f1 = ( valorIntervalor )  => ( 3 * ( Math.pow(valorIntervalor ,2) ) ) - 9;
 
 

@@ -30,7 +30,7 @@ export class SecanteComponent {
     fim_intervalo: null,
     chute_inicialA: 0,
     chute_inicialB: 0,
-    precisao: 0.0001,
+    precisao: 0.0005,
     funcao: 1,
     numero_interacoes: 20,
     erro: 0
@@ -47,7 +47,7 @@ export class SecanteComponent {
 
   constructor() {
     this.funcoes = [
-      { label: 'f(x) = x^3 - 9*x + 5', value: 1 },
+      { label: 'f(x) = x^3 - 9*x + 3', value: 1 },
       { label: 'f(x) = x^3 - x - 1', value: 2 },
       { label: 'f(x) = x - cos(x)', value: 3 },
 
@@ -195,7 +195,7 @@ export class SecanteComponent {
   novo_ponto_medio = (a, b) => (a + b) / 2;
 
 
-  funcao1 = (valorIntervalor) => (Math.pow(valorIntervalor, 3)) - (9 * valorIntervalor) + 5;
+  funcao1 = (valorIntervalor) => (Math.pow(valorIntervalor, 3)) - (9 * valorIntervalor) + 3;
 
   funcao2 = (valorIntervalor) => (Math.pow(valorIntervalor, 3)) - (valorIntervalor) - 1;
 
