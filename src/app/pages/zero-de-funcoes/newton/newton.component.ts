@@ -139,7 +139,7 @@ options = {
       inicio_intervalo : null,
       fim_intervalo : null,
       chute_inicial: 0,
-      precisao : 0.0001,
+      precisao : 0.0005,
       funcao : 1,
       numero_interacoes :  20,
       erro : 0

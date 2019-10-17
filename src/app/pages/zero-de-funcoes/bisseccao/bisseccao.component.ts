@@ -155,7 +155,7 @@ options = {
       inicio_intervalo : null,
       fim_intervalo : null,
       chute_inicial: null,
-      precisao : 0.0001,
+      precisao : 0.0005,
       funcao : 1,
       numero_interacoes :  20,
       funcao_escrita : ''

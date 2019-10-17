@@ -170,7 +170,7 @@ export class SecanteComponent {
       fim_intervalo: null,
       chute_inicialA: 0,
       chute_inicialB: 0,
-      precisao: 0.0001,
+      precisao: 0.0005,
       funcao: 1,
       numero_interacoes: 20,
       erro: 0

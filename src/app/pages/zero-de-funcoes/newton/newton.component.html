@@ -6,7 +6,7 @@
         </p-header>
 
 
-        
+
 
 
         <h3 class="first">Intervalo</h3>
@@ -16,7 +16,7 @@
 
 
             <div class="ui-g ui-fluid">
-                <div class="ui-g-12 ui-md-4">
+                <!-- <div class="ui-g-12 ui-md-4">
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon"><i style="line-height: 1.25;">Inicio Intervalo</i></span>
                         <input [(ngModel)]="entrada.inicio_intervalo" name="inicio_intervalo" type="number" pInputText
@@ -31,7 +31,7 @@
                         <input [(ngModel)]="entrada.fim_intervalo" name="fim_intervalo" type="number" pInputText
                             placeholder="Fim Intervalo">
                     </div>
-                </div>
+                </div> -->
 
                 <div class="ui-g-12 ui-md-4">
                     <div class="ui-inputgroup">
@@ -93,7 +93,7 @@
 
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Interação</th>               
+                    <th>Interação</th>
                     <th>F(x)</th>
                     <th>F'(x)/th>
                     <th>Error</th>
@@ -103,12 +103,12 @@
 
             <ng-template pTemplate="body" let-t>
                     <tr>
-                        <td>{{t.interacao}}</td>                        
+                        <td>{{t.interacao}}</td>
                         <td>{{t.ponto_medio}}</td>
                         <td>{{t.aproximacao}}</td>
                         <td>{{t.erro_da_iteracao}}</td>
-                        
-                        
+
+
                     </tr>
                 </ng-template>
 
