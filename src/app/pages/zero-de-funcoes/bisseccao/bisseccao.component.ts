@@ -116,6 +116,7 @@ options = {
           coluna.interacao = interacao;
 
 
+          this.table.push(coluna);
 
 
           if( this.calcular_precissao(  coluna.erro_da_iteracao , this.entrada.precisao) )
@@ -124,7 +125,6 @@ options = {
             break;
           }
 
-          this.table.push(coluna);
           interacao++;
 
         }

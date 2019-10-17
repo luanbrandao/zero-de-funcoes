@@ -89,11 +89,7 @@ options = {
 
       console.log("linha => " , linha)
 
-      if( this.parada(linha.ponto_medio , linha.aproximacao) ){
-        alert("Conveguiu!!!!")
-        interacao = this.entrada.numero_interacoes +1;
-        break;
-      }
+
 
       coluna.aproximacao = aproximacao;
 
@@ -103,13 +99,20 @@ options = {
 
       const result = this.table.find( obj => obj.ponto_medio === linha.ponto_medio )
 
+      this.table.push(linha);
+
       if( result ){
         alert("Ja existe na tabela")
         interacao = this.entrada.numero_interacoes +1;
         break;
       }
 
-      this.table.push(linha);
+      if( this.parada(linha.ponto_medio , linha.aproximacao) ){
+        alert("Conveguiu!!!!")
+        interacao = this.entrada.numero_interacoes +1;
+        break;
+      }
+
       interacao++;
 
 

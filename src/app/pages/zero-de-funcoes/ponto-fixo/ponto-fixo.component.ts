@@ -94,14 +94,14 @@ options = {
       coluna.x = derivada;
 
 
+
+            console.log("coluna: " , coluna);
+            this.table.push(linha);
+
       if( this.calcular_precissao(f_x , this.entrada.precisao) ){
         alert("paro no erro")
         interacao = this.entrada.numero_interacoes +1;
       }
-
-
-      console.log("coluna: " , coluna);
-      this.table.push(linha);
 
 
 
