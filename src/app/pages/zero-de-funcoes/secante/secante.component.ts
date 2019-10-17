@@ -58,6 +58,17 @@ export class SecanteComponent {
 
 
   submitForm() {
+
+    const possuiRaiz = this.possuiRaiz(
+      this.entrada.inicio_intervalo , this.entrada.fim_intervalo
+    );
+
+    if( !possuiRaiz ) {
+      alert("Não possui raiz!!!");
+      this.reiniciar();
+      return 0;
+    }
+
     console.log("intervaloA => ", this.entrada);
     let interacao = 3;
 

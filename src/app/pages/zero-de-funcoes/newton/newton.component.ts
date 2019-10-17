@@ -67,6 +67,16 @@ options = {
         };
 
 
+    const possuiRaiz = this.possuiRaiz(
+      this.entrada.inicio_intervalo , this.entrada.fim_intervalo
+    );
+
+    if( !possuiRaiz ) {
+      alert("Não possui raiz!!!");
+      this.reiniciar();
+      return 0;
+    }
+
 
       while ( interacao <= this.entrada.numero_interacoes  ) {
 
@@ -79,7 +89,7 @@ options = {
       console.log('c => ' , c);
       console.log('s => ' , s);
 
-      const aproximacao = ( coluna.aproximacao - ( c/s ) ).toFixed(5)
+      const aproximacao = this.newton( coluna.aproximacao , c,s );
       console.log("aproximacao => " , aproximacao);
 
       let linha = {
@@ -156,6 +166,9 @@ options = {
 
     this.atualizar_status();
   }
+
+  newton = ( x , f_x, d_x) =>  ( x - ( f_x/d_x ) ).toFixed(5)
+
 
   possuiRaiz = (inicio_intervalo , fim_intervalo) =>
        (this.funcao_escolhida(inicio_intervalo) *  this.funcao_escolhida(fim_intervalo)) < 0
