@@ -79,7 +79,7 @@ options = {
       console.log('c => ' , c);
       console.log('s => ' , s);
 
-      const aproximacao = coluna.aproximacao - ( c/s )
+      const aproximacao = ( coluna.aproximacao - ( c/s ) ).toFixed(5)
       console.log("aproximacao => " , aproximacao);
 
       let linha = {
@@ -93,7 +93,7 @@ options = {
 
 
 
-      coluna.aproximacao = aproximacao;
+      coluna.aproximacao = parseFloat( aproximacao);
 
       console.log("coluna: " , coluna);
 
