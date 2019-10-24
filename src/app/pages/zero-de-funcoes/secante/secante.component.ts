@@ -47,9 +47,10 @@ export class SecanteComponent {
 
   constructor() {
     this.funcoes = [
-      { label: 'f(x) = x^3 - 9*x + 3', value: 1 },
+      { label: 'f(x) = x^3 - 9*x + 2', value: 1 },
       { label: 'f(x) = x^3 - x - 1', value: 2 },
       { label: 'f(x) = x - cos(x)', value: 3 },
+      { label: 'f(x) = exp(−x^2) − cos(x);', value: 4 },
 
     ];
   }
@@ -161,7 +162,7 @@ export class SecanteComponent {
 
     }
 
-    console.table(this.table);
+    // console.table(this.table);
     this.gerar_grafico()
     this.atualizar_status();
 
@@ -199,18 +200,20 @@ export class SecanteComponent {
     this.atualizar_status();
   }
 
-  possuiRaiz = (inicio_intervalo, fim_intervalo) =>
-    (this.funcao_escolhida(inicio_intervalo) * this.funcao_escolhida(fim_intervalo)) < 0
+  possuiRaiz = (inicio_intervalo , fim_intervalo) =>
+  (this.funcao_escolhida(inicio_intervalo) *  this.funcao_escolhida(fim_intervalo)) < 0
 
 
   novo_ponto_medio = (a, b) => (a + b) / 2;
 
 
-  funcao1 = (valorIntervalor) => (Math.pow(valorIntervalor, 3)) - (9 * valorIntervalor) + 3;
+  funcao1 = (valorIntervalor) => (Math.pow(valorIntervalor, 3)) - (9 * valorIntervalor) + 2;
 
   funcao2 = (valorIntervalor) => (Math.pow(valorIntervalor, 3)) - (valorIntervalor) - 1;
 
   funcao3 = (valorIntervalor) => valorIntervalor - Math.cos(valorIntervalor)
+
+  funcao4 = (valorIntervalor) => ( Math.exp( -(Math.pow(valorIntervalor, 2)) ) ) - Math.cos(valorIntervalor) ;
 
   secante(x_atual, x_anterior, f_x_atual, f_x_anterior) {
     return (f_x_atual * (x_atual - x_anterior)) / (f_x_atual - f_x_anterior)
@@ -229,6 +232,9 @@ export class SecanteComponent {
         break;
       case 3:
         return this.funcao3(x);
+        break;
+      case 4:
+        return this.funcao4(x);
         break;
 
     }

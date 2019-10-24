@@ -45,8 +45,9 @@ options = {
 
   constructor() {
        this.funcoes = [
-            {label:'f(x) = x^3 - 9*x + 3', value:1},
+            {label:'f(x) = x^3 - 9*x + 2', value:1},
             {label:'f(x) = x^3 - x - 1', value:2},
+            { label: 'f(x) = exp(−x^2) − cos(x);', value: 3 },
 
         ];
   }
@@ -63,9 +64,7 @@ options = {
         let coluna = {
             interacao : interacao,
             x : this.entrada.chute_inicial,
-            derivada: 0,
             f_x : 0,
-            // derivada: 0
         };
 
 
@@ -88,21 +87,16 @@ options = {
       const f_x = this.funcao_escolhida(coluna.x)
       console.log("f_x => " , f_x);
 
-      // const derivada =  this.derivada_escolhida(coluna.f_x);
-      // console.log("derivada_x => " , derivada )
-      // coluna.derivada = derivada;
+      const f_de_interacao =  this.funcao_de_interacao_escolhida(coluna.x);
 
-
-      const derivada =  this.derivada_escolhida(coluna.x);
-      // console.log("derivada_x => " , derivada )
 
       let linha = {
         interacao : interacao,
         x :coluna.x,
         f_x: f_x,
-        derivada: derivada
+        f_de_interacao: f_de_interacao
       };
-      coluna.x = derivada;
+      coluna.x = f_de_interacao;
 
 
 
@@ -174,14 +168,19 @@ options = {
   novo_ponto_medio = (a,b) => (a+b) / 2;
 
 
-  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 3;
-  derivada_f1 = ( valorIntervalor )  => ( ( Math.pow(valorIntervalor ,3) ) + 3 ) / 9;
-  // derivada_f1 = ( valorIntervalor )  => ( 3 * ( Math.pow(valorIntervalor ,2) ) ) - 9;
+  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 2;
+  funcao_de_interacao1 = ( valorIntervalor )  => ( ( Math.pow(valorIntervalor ,3) ) + 2 ) / 9;
+
 
 
   funcao2 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( valorIntervalor ) - 1;
-  derivada_f2 = ( valorIntervalor )  => (Math.cbrt(valorIntervalor+1))
+  funcao_de_interacao2 = ( valorIntervalor )  => (Math.cbrt(valorIntervalor+1))
 
+  funcao3 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( valorIntervalor ) - 1;
+  funcao_de_interacao3 = ( valorIntervalor )  => (Math.cbrt(valorIntervalor+1))
+
+  funcao4 = (valorIntervalor) => ( Math.exp( -(Math.pow(valorIntervalor, 2)) ) ) - Math.cos(valorIntervalor) ;
+  funcao_de_interacao4 = ( valorIntervalor )  => (Math.pow(-valorIntervalor,3)) -  Math.cos(valorIntervalor) ;
 
   funcao_escolhida( x )  {
 
@@ -192,20 +191,28 @@ options = {
       break;
       case 2:
         return this.funcao2(x);
+      case 3:
+        return this.funcao3(x);
+      case 4:
+        return this.funcao4(x);
       break;
 
     }
   }
 
-  derivada_escolhida( x )  {
+  funcao_de_interacao_escolhida( x )  {
 
   let select = this.entrada.funcao;
     switch ( select ){
       case 1:
-        return this.derivada_f1(x);
+        return this.funcao_de_interacao1(x);
       break;
       case 2:
-        return this.derivada_f2(x);
+        return this.funcao_de_interacao2(x);
+      case 3:
+        return this.funcao_de_interacao3(x);
+      case 4:
+        return this.funcao_de_interacao4(x);
       break;
 
 

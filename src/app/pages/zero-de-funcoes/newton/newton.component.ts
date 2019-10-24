@@ -59,8 +59,6 @@ options = {
     console.log("intervaloA => " , this.entrada);
     let interacao = 1;
 
-
-
         let coluna = {
             interacao : interacao,
             aproximacao: this.entrada.chute_inicial
@@ -85,10 +83,6 @@ options = {
       const s = parseFloat(this.derivada_escolhida(coluna.aproximacao).toFixed(5));
 
 
-
-      console.log('c => ' , c);
-      console.log('s => ' , s);
-
       const aproximacao = this.newton( coluna.aproximacao , c,s );
       console.log("aproximacao => " , aproximacao);
 
@@ -98,15 +92,7 @@ options = {
         aproximacao: aproximacao
       };
 
-
-      console.log("linha => " , linha)
-
-
-
       coluna.aproximacao = parseFloat( aproximacao);
-
-      console.log("coluna: " , coluna);
-
 
 
       const result = this.table.find( obj => obj.ponto_medio === linha.ponto_medio )
