@@ -45,7 +45,7 @@ options = {
 
   constructor() {
        this.funcoes = [
-         {label:'f(x) = x^3 - 9*x + 3', value:1},
+         {label:'f(x) = x^3 - 9*x + 5', value:1},
          {label:'f(x) = x^3 - x - 1', value:2},
          {label:'f(x) = x - cos(x)', value:3},
 
@@ -61,7 +61,9 @@ options = {
 
         let coluna = {
             interacao : interacao,
-            aproximacao: this.entrada.chute_inicial
+            x : this.entrada.chute_inicial,
+            f_x :  0,
+            f_interacao: 0
         };
 
 
@@ -69,30 +71,30 @@ options = {
       this.entrada.inicio_intervalo , this.entrada.fim_intervalo
     );
 
-    if( !possuiRaiz ) {
-      alert("Não possui raiz!!!");
-      this.reiniciar();
-      return 0;
-    }
+    // if( !possuiRaiz ) {
+    //   alert("Não possui raiz!!!");
+    //   this.reiniciar();
+    //   return 0;
+    // }
 
 
       while ( interacao <= this.entrada.numero_interacoes  ) {
 
 
-      const c  = parseFloat(this.funcao_escolhida(coluna.aproximacao).toFixed(5));
-      const s = parseFloat(this.derivada_escolhida(coluna.aproximacao).toFixed(5));
+      const f_x  = parseFloat(this.funcao_escolhida(coluna.x).toFixed(5));
+      const derivada = parseFloat(this.derivada_escolhida(coluna.x).toFixed(5));
 
 
-      const aproximacao = this.newton( coluna.aproximacao , c,s );
-      console.log("aproximacao => " , aproximacao);
+      const aproximacao = this.newton( coluna.x , f_x, derivada );
 
       let linha = {
         interacao : interacao,
-        ponto_medio :coluna.aproximacao,
+        ponto_medio : coluna.x,
+        f_x : f_x,
         aproximacao: aproximacao
       };
 
-      coluna.aproximacao = parseFloat( aproximacao);
+      coluna.x = parseFloat( aproximacao);
 
 
       const result = this.table.find( obj => obj.ponto_medio === linha.ponto_medio )
@@ -105,11 +107,13 @@ options = {
         break;
       }
 
-      if( this.parada(linha.ponto_medio , linha.aproximacao) ){
+      if( this.parada( f_x , linha.aproximacao) ){
         alert("Conveguiu!!!!")
         interacao = this.entrada.numero_interacoes +1;
         break;
       }
+
+
 
       interacao++;
 
@@ -153,7 +157,7 @@ options = {
     this.atualizar_status();
   }
 
-  newton = ( x , f_x, d_x) =>  ( x - ( f_x/d_x ) ).toFixed(5)
+  newton = ( x , f_x, derivada) =>  ( x - ( f_x/derivada) ).toFixed(5)
 
 
   possuiRaiz = (inicio_intervalo , fim_intervalo) =>
@@ -163,8 +167,8 @@ options = {
   novo_ponto_medio = (a,b) => (a+b) / 2;
 
 
-  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 3;
-  derivada_f1 = ( valorIntervalor )  => ( 3 * ( Math.pow(valorIntervalor ,2) ) ) - 9;
+  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 5;
+  derivada_f1 = ( valorIntervalor )  => ( 5 * ( Math.pow(valorIntervalor ,2) ) ) - 9;
 
 
   funcao2 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( valorIntervalor ) - 1;
@@ -214,7 +218,7 @@ options = {
   atualizarIntervalor = ( f_a, f_c) =>  (this.funcao_escolhida(f_a) *  f_c ) > 0;
 
 
-  parada = (erro , precisao) =>   erro == precisao
+  parada = (erro , precisao) =>   Math.abs(erro) < precisao
 
 
   gerar_grafico(){

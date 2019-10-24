@@ -55,9 +55,6 @@ export class SecanteComponent {
     ];
   }
 
-
-
-
   submitForm() {
 
     const possuiRaiz = this.possuiRaiz(
@@ -121,13 +118,6 @@ export class SecanteComponent {
         console.log("f_atual => " , f_x_atual);
 
 
-
-      // console.log('c => ' , c);
-      // console.log('s => ' , s);
-
-      // const aproximacao = coluna.aproximacao - s;
-      // console.log("aproximacao => " , aproximacao);
-
       linha = {
         interacao: interacao,
         x_atual:  x_atual,
@@ -156,13 +146,9 @@ export class SecanteComponent {
         break;
       }
 
-
       interacao++;
-
-
     }
 
-    // console.table(this.table);
     this.gerar_grafico()
     this.atualizar_status();
 
