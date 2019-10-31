@@ -26,14 +26,15 @@ export class SecanteComponent {
   };
 
   entrada = {
-    inicio_intervalo: null,
-    fim_intervalo: null,
+    inicio_intervalo: 0,
+    fim_intervalo: 1.5,
     chute_inicialA: 0,
-    chute_inicialB: 0,
+    chute_inicialB: 0.5,
     precisao: 0.0005,
     funcao: 1,
     numero_interacoes: 20,
-    erro: 0
+    erro: 0,
+    funcao_escrita: '',
   }
 
   pontosMedios = [];
@@ -51,7 +52,7 @@ export class SecanteComponent {
       { label: 'f(x) = x^3 - x - 1', value: 2 },
       { label: 'f(x) = x - cos(x)', value: 3 },
       { label: 'f(x) = exp(−x^2) − cos(x);', value: 4 },
-
+      { label: 'f(x) = ???', value: 0 },
     ];
   }
 
@@ -165,14 +166,15 @@ export class SecanteComponent {
   reiniciar() {
 
     this.entrada = {
-      inicio_intervalo: null,
-      fim_intervalo: null,
+      inicio_intervalo: 0,
+      fim_intervalo: 1.5,
       chute_inicialA: 0,
-      chute_inicialB: 0,
+      chute_inicialB: 0.5,
       precisao: 0.0005,
       funcao: 1,
       numero_interacoes: 20,
-      erro: 0
+      erro: 0,
+      funcao_escrita: ''
     }
 
     this.table = [];
@@ -206,6 +208,26 @@ export class SecanteComponent {
     return x_atual - (f_x_atual * (x_atual - x_anterior)) / (f_x_atual - f_x_anterior)
   }
 
+
+  funcao_escrita = (funcao, X) => {
+    console.log('escrita aqui');
+    const cos = (X)=> Math.cos(X);
+    const sen = X => Math.sin(X);
+    const pow = (X, y) => Math.pow(X, y)
+    const abs = (X) => Math.abs(X)
+    const sqrt = (X) => Math.sqrt(X)
+    const exp = (X) => Math.exp(X)
+    const cbrt = (X) => Math.cbrt(X)
+
+
+    // funcao = funcao.replace("E", e);
+    funcao = funcao.replace("X", X);
+
+    console.log("funcao =>", funcao)
+    return eval(funcao);
+  }
+
+
   funcao_escolhida(x) {
 
     let select = this.entrada.funcao;
@@ -222,6 +244,10 @@ export class SecanteComponent {
         break;
       case 4:
         return this.funcao4(x);
+        break;
+
+        case 0:
+            return this.funcao_escrita(this.entrada.funcao_escrita, x);
         break;
 
     }
