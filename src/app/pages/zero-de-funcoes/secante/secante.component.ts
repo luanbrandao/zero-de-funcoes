@@ -27,12 +27,12 @@ export class SecanteComponent {
 
   entrada = {
     inicio_intervalo: 0,
-    fim_intervalo: 1.5,
+    fim_intervalo: 0,
     chute_inicialA: 0,
-    chute_inicialB: 0.5,
-    precisao: 0.0005,
+    chute_inicialB: 0,
+    precisao: 0.0001,
     funcao: 1,
-    numero_interacoes: 20,
+    numero_interacoes: 50,
     erro: 0,
     funcao_escrita: '',
   }
@@ -167,14 +167,14 @@ export class SecanteComponent {
 
     this.entrada = {
       inicio_intervalo: 0,
-      fim_intervalo: 1.5,
+      fim_intervalo: 0,
       chute_inicialA: 0,
-      chute_inicialB: 0.5,
-      precisao: 0.0005,
+      chute_inicialB: 0,
+      precisao: 0.0001,
       funcao: 1,
-      numero_interacoes: 20,
+      numero_interacoes: 50,
       erro: 0,
-      funcao_escrita: ''
+      funcao_escrita: '',
     }
 
     this.table = [];
