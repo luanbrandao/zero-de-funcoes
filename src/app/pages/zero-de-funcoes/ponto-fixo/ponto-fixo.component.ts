@@ -25,13 +25,15 @@ options = {
 };
 
   entrada = {
-    inicio_intervalo : null,
-    fim_intervalo : null,
+    inicio_intervalo : 0,
+    fim_intervalo : 1,
     chute_inicial: 0,
-    precisao : 0.0005,
+    precisao : 0.0000000001,
     funcao : 1,
     numero_interacoes : 20,
-    erro : 0
+    erro : 0,
+    funcao_escrita:'',
+    funcao_escrita_i:''
   }
 
   pontosMedios = [];
@@ -48,6 +50,7 @@ options = {
             {label:'f(x) = x^3 - 9*x + 2', value:1},
             {label:'f(x) = x^3 - x - 1', value:2},
             { label: 'f(x) = exp(−x^2) − cos(x);', value: 3 },
+            { label: 'f(x) = ???', value: 0 },
 
         ];
   }
@@ -140,13 +143,17 @@ options = {
   reiniciar(){
 
     this.entrada = {
-      inicio_intervalo : null,
-      fim_intervalo : null,
+      inicio_intervalo : 0,
+    fim_intervalo : 1,
+      // inicio_intervalo : null,
+      // fim_intervalo : null,
       chute_inicial: 0,
-      precisao : 0.0005,
+      precisao : 0.0000000001,
       funcao : 1,
       numero_interacoes :  20,
-      erro : 0
+      erro : 0,
+      funcao_escrita:'',
+      funcao_escrita_i:''
     }
 
     this.table = [];
@@ -182,6 +189,46 @@ options = {
   funcao4 = (valorIntervalor) => ( Math.exp( -(Math.pow(valorIntervalor, 2)) ) ) - Math.cos(valorIntervalor) ;
   funcao_de_interacao4 = ( valorIntervalor )  => (Math.pow(-valorIntervalor,3)) -  Math.cos(valorIntervalor) ;
 
+
+  funcao_escrita = (funcao, x) => {
+    console.log('escrita aqui');
+    const cos = x => Math.cos(x);
+    const sen = x => Math.sin(x);
+    const pow = (x, y) => Math.pow(x, y)
+    const abs = (x) => Math.abs(x)
+    const sqrt = (x) => Math.sqrt(x)
+    const exp = (x) => Math.exp(x)
+
+    // funcao = funcao.replace("E", e);
+    funcao = funcao.replace("x", x);
+
+    console.log("funcao =>", funcao)
+    return eval(funcao);
+  }
+
+
+  funcao_interacao_escrita = (funcao, x) => {
+    console.log('escrita aqui');
+    const cos = x => Math.cos(x);
+    const sen = x => Math.sin(x);
+    const pow = (x, y) => Math.pow(x, y)
+    const abs = (x) => Math.abs(x)
+    const sqrt = (x) => Math.sqrt(x)
+    const exp = (x) => Math.exp(x)
+
+
+    // funcao = funcao.replace("E", e);
+
+    console.log('funcao => ', funcao);
+    funcao = funcao.replace("x", x);
+
+
+
+    console.log("funcao =>", funcao)
+    return eval(funcao);
+  }
+
+
   funcao_escolhida( x )  {
 
   let select = this.entrada.funcao;
@@ -195,6 +242,9 @@ options = {
         return this.funcao3(x);
       case 4:
         return this.funcao4(x);
+      break;
+      case 0:
+        return this.funcao_escrita(this.entrada.funcao_escrita, x);
       break;
 
     }
@@ -213,8 +263,12 @@ options = {
         return this.funcao_de_interacao3(x);
       case 4:
         return this.funcao_de_interacao4(x);
-      break;
+        break;
 
+        case 0:
+            return this.funcao_de_interacao1(x);
+        // return this.funcao_escrita(this.entrada.funcao_escrita_i, x);
+      break;
 
     }
   }

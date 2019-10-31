@@ -72,11 +72,11 @@ options = {
       this.entrada.inicio_intervalo , this.entrada.fim_intervalo
     );
 
-    // if( !possuiRaiz ) {
-    //   alert("Não possui raiz!!!");
-    //   this.reiniciar();
-    //   return 0;
-    // }
+    if( !possuiRaiz ) {
+      alert("Não possui raiz!!!");
+      this.reiniciar();
+      return 0;
+    }
 
 
       while ( interacao <= this.entrada.numero_interacoes  ) {

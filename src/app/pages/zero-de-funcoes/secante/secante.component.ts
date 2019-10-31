@@ -78,7 +78,7 @@ export class SecanteComponent {
       f_atual: this.funcao_escolhida(this.entrada.chute_inicialB),
       f_anterior: this.funcao_escolhida(this.entrada.chute_inicialA)
     };
-
+// já faz o calculo de x0
     let linha = {
       interacao: 0,
       x_atual:  this.entrada.chute_inicialA,
@@ -87,6 +87,7 @@ export class SecanteComponent {
 
      this.table.push(linha);
 
+// já faz o calculo de x1
      linha = {
       interacao: 1,
       x_atual:  this.entrada.chute_inicialB,
