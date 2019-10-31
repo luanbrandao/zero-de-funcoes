@@ -25,13 +25,16 @@ options = {
 };
 
   entrada = {
-    inicio_intervalo : null,
-    fim_intervalo : null,
+    inicio_intervalo : 0,
+    fim_intervalo : 1.5,
     chute_inicial: 0,
-    precisao : 0.0005,
+    precisao : 0.00001,
     funcao : 1,
-    numero_interacoes : 20,
-    erro : 0
+    numero_interacoes : 30,
+    erro : 0,
+    funcao_escrita :'',
+    derivada :''
+
   }
 
   pontosMedios = [];
@@ -49,6 +52,7 @@ options = {
          {label:'f(x) = x^3 - x - 1', value:2},
          {label:'f(x) = x - cos(x)', value:3},
          { label: 'f(x) = exp(−x^2) − cos(x);', value: 4 },
+         { label: 'f(x) = ???', value: 0 },
 
         ];
   }
@@ -140,13 +144,15 @@ options = {
   reiniciar(){
 
     this.entrada = {
-      inicio_intervalo : null,
-      fim_intervalo : null,
+      inicio_intervalo : 0,
+      fim_intervalo : 1.5,
       chute_inicial: 0,
-      precisao : 0.0005,
+      precisao : 0.00001,
       funcao : 1,
-      numero_interacoes :  20,
-      erro : 0
+      numero_interacoes : 30,
+      erro : 0,
+      funcao_escrita :'',
+      derivada :''
     }
 
     this.table = [];
@@ -200,8 +206,31 @@ options = {
         return this.funcao4(x);
       break;
 
+      case 0:
+        return this.funcao_escrita(this.entrada.funcao_escrita, x);
+      break;
+
     }
   }
+
+
+  funcao_escrita = (funcao, x) => {
+    console.log('escrita aqui');
+    const cos = x => Math.cos(x);
+    const sen = x => Math.sin(x);
+    const pow = (x, y) => Math.pow(x, y)
+    const abs = (x) => Math.abs(x)
+    const sqrt = (x) => Math.sqrt(x)
+    const exp = (x) => Math.exp(x)
+    const cbrt = (x) => Math.cbrt(x)
+    // funcao = funcao.replace("E", e);
+    funcao = funcao.replace("x", x);
+
+    console.log("funcao =>", funcao)
+    return eval(funcao);
+  }
+
+
 
   derivada_escolhida( x )  {
 
@@ -219,6 +248,9 @@ options = {
         return this.derivada_f4(x);
       break;
 
+      case 0:
+        return this.funcao_escrita(this.entrada.derivada, x);
+      break;
 
     }
   }

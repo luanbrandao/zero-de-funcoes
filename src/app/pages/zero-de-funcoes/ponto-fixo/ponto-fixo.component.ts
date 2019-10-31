@@ -26,7 +26,7 @@ options = {
 
   entrada = {
     inicio_intervalo : 0,
-    fim_intervalo : 1,
+    fim_intervalo : 0,
     chute_inicial: 0,
     precisao : 0.0000000001,
     funcao : 1,
@@ -144,7 +144,7 @@ options = {
 
     this.entrada = {
       inicio_intervalo : 0,
-    fim_intervalo : 1,
+    fim_intervalo : 0,
       // inicio_intervalo : null,
       // fim_intervalo : null,
       chute_inicial: 0,
