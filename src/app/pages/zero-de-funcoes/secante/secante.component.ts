@@ -110,7 +110,7 @@ export class SecanteComponent {
       console.table(calculo);
 
 
-       const x_atual = calculo.x_atual -  this.secante(calculo.x_atual, calculo.x_anterior,
+       const x_atual = this.secante(calculo.x_atual, calculo.x_anterior,
         calculo.f_atual, calculo.f_anterior)
 
         const f_x_atual  =this.funcao_escolhida(x_atual);
@@ -202,7 +202,7 @@ export class SecanteComponent {
   funcao4 = (valorIntervalor) => ( Math.exp( -(Math.pow(valorIntervalor, 2)) ) ) - Math.cos(valorIntervalor) ;
 
   secante(x_atual, x_anterior, f_x_atual, f_x_anterior) {
-    return (f_x_atual * (x_atual - x_anterior)) / (f_x_atual - f_x_anterior)
+    return x_atual - (f_x_atual * (x_atual - x_anterior)) / (f_x_atual - f_x_anterior)
   }
 
   funcao_escolhida(x) {

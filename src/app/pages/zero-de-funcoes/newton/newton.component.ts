@@ -45,9 +45,10 @@ options = {
 
   constructor() {
        this.funcoes = [
-         {label:'f(x) = x^3 - 9*x + 5', value:1},
+         {label:'f(x) = x^3 - 9*x + 2', value:1},
          {label:'f(x) = x^3 - x - 1', value:2},
          {label:'f(x) = x - cos(x)', value:3},
+         { label: 'f(x) = exp(−x^2) − cos(x);', value: 4 },
 
         ];
   }
@@ -94,10 +95,18 @@ options = {
         aproximacao: aproximacao
       };
 
+      console.log("linha")
       coluna.x = parseFloat( aproximacao);
 
 
       const result = this.table.find( obj => obj.ponto_medio === linha.ponto_medio )
+
+
+            if( this.parada( f_x , this.entrada.precisao) ){
+              alert("Conveguiu!!!!")
+              interacao = this.entrada.numero_interacoes +1;
+              break;
+            }
 
       this.table.push(linha);
 
@@ -107,11 +116,6 @@ options = {
         break;
       }
 
-      if( this.parada( f_x , linha.aproximacao) ){
-        alert("Conveguiu!!!!")
-        interacao = this.entrada.numero_interacoes +1;
-        break;
-      }
 
 
 
@@ -167,15 +171,18 @@ options = {
   novo_ponto_medio = (a,b) => (a+b) / 2;
 
 
-  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9* valorIntervalor ) + 5;
-  derivada_f1 = ( valorIntervalor )  => ( 5 * ( Math.pow(valorIntervalor ,2) ) ) - 9;
+  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9 * valorIntervalor ) + 5;
+  derivada_f1 = ( valorIntervalor )  => ( 3 * ( Math.pow(valorIntervalor ,2) ) ) - 9;
 
 
   funcao2 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( valorIntervalor ) - 1;
-  derivada_f2 = ( valorIntervalor )  => (Math.cbrt(valorIntervalor+1))
+  derivada_f2 = ( valorIntervalor )  =>  ( 3 * ( Math.pow(valorIntervalor ,2) ) ) - 1;
 
   funcao3 = ( valorIntervalor )  => valorIntervalor - Math.cos(valorIntervalor)
   derivada_f3 = ( valorIntervalor )  => 1 + Math.sin(valorIntervalor)
+
+  funcao4 = (valorIntervalor) => ( Math.exp( -(Math.pow(valorIntervalor, 2)) ) ) - Math.cos(valorIntervalor) ;
+  derivada_f4 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - valorIntervalor - 1
 
   funcao_escolhida( x )  {
 
@@ -189,6 +196,8 @@ options = {
       break;
       case 3:
         return this.funcao3(x);
+      case 4:
+        return this.funcao4(x);
       break;
 
     }
@@ -206,6 +215,8 @@ options = {
       break;
       case 3:
         return this.derivada_f3(x);
+      case 4:
+        return this.derivada_f4(x);
       break;
 
 
