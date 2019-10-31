@@ -198,6 +198,8 @@ options = {
     const abs = (x) => Math.abs(x)
     const sqrt = (x) => Math.sqrt(x)
     const exp = (x) => Math.exp(x)
+    const cbrt = (x) => Math.cbrt(x)
+
 
     // funcao = funcao.replace("E", e);
     funcao = funcao.replace("x", x);
@@ -207,26 +209,6 @@ options = {
   }
 
 
-  funcao_interacao_escrita = (funcao, x) => {
-    console.log('escrita aqui');
-    const cos = x => Math.cos(x);
-    const sen = x => Math.sin(x);
-    const pow = (x, y) => Math.pow(x, y)
-    const abs = (x) => Math.abs(x)
-    const sqrt = (x) => Math.sqrt(x)
-    const exp = (x) => Math.exp(x)
-
-
-    // funcao = funcao.replace("E", e);
-
-    console.log('funcao => ', funcao);
-    funcao = funcao.replace("x", x);
-
-
-
-    console.log("funcao =>", funcao)
-    return eval(funcao);
-  }
 
 
   funcao_escolhida( x )  {
@@ -266,8 +248,8 @@ options = {
         break;
 
         case 0:
-            return this.funcao_de_interacao1(x);
-        // return this.funcao_escrita(this.entrada.funcao_escrita_i, x);
+            // return this.funcao_de_interacao1(x);
+        return this.funcao_escrita(this.entrada.funcao_escrita_i, x);
       break;
 
     }
