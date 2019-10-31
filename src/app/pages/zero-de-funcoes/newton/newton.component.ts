@@ -171,7 +171,7 @@ options = {
   novo_ponto_medio = (a,b) => (a+b) / 2;
 
 
-  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9 * valorIntervalor ) + 5;
+  funcao1 = ( valorIntervalor )  => ( Math.pow(valorIntervalor ,3) ) - ( 9 * valorIntervalor ) + 2;
   derivada_f1 = ( valorIntervalor )  => ( 3 * ( Math.pow(valorIntervalor ,2) ) ) - 9;
 
 
