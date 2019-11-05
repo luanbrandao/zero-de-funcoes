@@ -14,13 +14,14 @@
         <form #form="ngForm" action="">
 
 
+          <!-- <input type="number" required name="price" min="0" value="0" step="any"> -->
 
             <div class="ui-g ui-fluid">
                 <div class="ui-g-12 ui-md-4">
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon"><i style="line-height: 1.25;">Inicio Intervalo</i></span>
-                        <input [(ngModel)]="entrada.inicio_intervalo" name="inicio_intervalo" type="number" pInputText
-                            placeholder="Inicio Intervalo">
+                        <input [(ngModel)]="entrada.inicio_intervalo" name="inicio_intervalo" type="number"
+                         placeholder="Inicio Intervalo"  min="0" value="0" step="any">
                     </div>
                 </div>
 
