@@ -20,6 +20,15 @@ export class AppComponent {
   ngOnInit() {
       this.items = [
           {
+              label: 'Home',
+              icon: 'pi pi-fw pi-pencil',
+              items: [
+                  {label: 'Home',command: () => this.goUrl('/boas-vindas') } ,
+
+              ],
+
+          },
+          {
               label: 'Zeros de Funções',
               icon: 'pi pi-fw pi-pencil',
               items: [

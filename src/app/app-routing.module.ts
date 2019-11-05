@@ -3,7 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { path : '' , redirectTo: 'bisseccao' , pathMatch: 'full'}   
+
+  {  path: 'bisseccao',
+     loadChildren: './pages/home/home-routing.module#HomeRoutingModule'
+},
+  { path : '' , redirectTo: 'boas-vindas' , pathMatch: 'full'}   ,
 ];
 
 @NgModule({

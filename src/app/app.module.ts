@@ -11,6 +11,8 @@ import { ZeroDeFuncoesModule } from './pages/zero-de-funcoes/zero-de-funcoes.mod
 import {PanelModule} from 'primeng/panel';
 import {CardModule} from 'primeng/card';
 import { FormsModule } from '@angular/forms';
+import { HomeModule } from './pages/home/home.module';
+
 
 // npm install @angular/cdk --save
 
@@ -20,13 +22,14 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,    
+    BrowserAnimationsModule,
     PanelModule,
     CardModule,
+    HomeModule,
+    ZeroDeFuncoesModule,
     AppRoutingModule,
     MenubarModule,
-    ZeroDeFuncoesModule,
-    FormsModule
+    FormsModule,
 
   ],
   providers: [],
