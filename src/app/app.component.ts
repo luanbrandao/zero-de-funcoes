@@ -24,6 +24,7 @@ export class AppComponent {
               icon: 'pi pi-fw pi-pencil',
               items: [
                   {label: 'Home',command: () => this.goUrl('/boas-vindas') } ,
+                  {label: 'Exemplos',command: () => this.goUrl('/exemplos') } ,
 
               ],
 
