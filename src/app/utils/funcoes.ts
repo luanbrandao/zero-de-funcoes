@@ -57,8 +57,6 @@ export abstract class Funcoes {
   }
 
   setEntrada (nova_entrada,funcao_escritra?) {
-    console.log("entrada atualizada!!!");
-    console.log("e");
     this._entrada = nova_entrada;
     this._funcaoEscrita = funcao_escritra;
   }
