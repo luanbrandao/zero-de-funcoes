@@ -1,46 +1,9 @@
 export abstract class Funcoes {
 
-  _funcoes = [
-    { label: 'f(x) = e^x - x - 2', value: 1 },
-    { label: 'f(x) = x^3 - x - 1', value: 2 },
-    { label: 'f(x) = x^3 - 9*x + 2', value: 3 },
-    { label: 'f(x) = exp(−x^2) − cos(x);', value: 4 },
-    { label: 'f(x) = ???', value: 0 },
-  ];
-
-  _entrada;
   _funcaoEscrita = '';
 
 
-
-  funcao_escolhida(x) {
-    let select = this._entrada;
-    switch (select) {
-      case 1:
-        return this.funcao1(x);
-        break;
-      case 2:
-        return this.funcao2(x);
-        break;
-      case 3:
-        return this.funcao3(x);
-        break;
-      case 4:
-        return this.funcao4(x);
-        break;
-      case 0:
-        return this.funcao_escrita(this._funcaoEscrita, x);
-        break;
-    }
-  }
-
-
-  funcao1 = (valorIntervalor) => (Math.pow(2.71828, valorIntervalor)) - (valorIntervalor) - 2;
-  funcao2 = (valorIntervalor) => (Math.pow(valorIntervalor, 3)) - (valorIntervalor) - 1;
-  funcao3 = (valorIntervalor) => (Math.pow(valorIntervalor, 3)) - (9 * valorIntervalor) + 2;
-  funcao4 = (valorIntervalor) => ( Math.exp( -(Math.pow(valorIntervalor, 2)) ) ) - Math.cos(valorIntervalor) ;
-
-  funcao_escrita = (funcao, x) => {
+  funcao = (x) => {
     console.log('escrita aqui');
     const cos = x => Math.cos(x);
     const sen = x => Math.sin(x);
@@ -49,16 +12,14 @@ export abstract class Funcoes {
     const sqrt = (x) => Math.sqrt(x)
     const exp = (x) => Math.exp(x)
 
-    // funcao = funcao.replace("E", e);
-    funcao = funcao.replace("x", x);
-
+    const funcao = this._funcaoEscrita.replace("x", x);
     console.log("funcao =>", funcao)
-    return eval(funcao);
+    return eval(funcao).toFixed(7);
+
   }
 
-  setEntrada (nova_entrada,funcao_escritra?) {
-    this._entrada = nova_entrada;
-    this._funcaoEscrita = funcao_escritra;
+  setFuncao (funcao) {
+    this._funcaoEscrita = funcao;
   }
 
 }

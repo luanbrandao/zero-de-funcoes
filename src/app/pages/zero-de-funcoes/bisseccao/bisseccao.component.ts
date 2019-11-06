@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {SelectItem} from 'primeng/api';
 import { Funcoes } from 'src/app/utils/funcoes';
 
 @Component({
@@ -10,32 +8,27 @@ import { Funcoes } from 'src/app/utils/funcoes';
 })
 export class BisseccaoComponent extends Funcoes {
 
-  funcoes: SelectItem[];
-
   entrada = {
     inicio_intervalo : null,
     fim_intervalo : null,
     chute_inicial: null,
     precisao : 0.0005,
-    funcao : 1,
     numero_interacoes : 20,
     funcao_escrita : ''
   }
 
   pontosMedios = [];
 
-
   status_complto = false;
   table = [];
 
   constructor() {
     super();
-    this.funcoes = this._funcoes;
   }
 
   submitForm ()  {
 
-    this.setEntrada(this.entrada.funcao, this.entrada.funcao_escrita)
+    this.setFuncao(this.entrada.funcao_escrita)
 
     console.log("intervaloA => " , this.entrada);
 
@@ -118,7 +111,6 @@ export class BisseccaoComponent extends Funcoes {
       fim_intervalo : null,
       chute_inicial: null,
       precisao : 0.0005,
-      funcao : 1,
       numero_interacoes :  20,
       funcao_escrita : ''
     }
@@ -131,25 +123,23 @@ export class BisseccaoComponent extends Funcoes {
   }
 
   possuiRaiz = (inicio_intervalo , fim_intervalo) =>
-       (this.funcao_escolhida(inicio_intervalo) *  this.funcao_escolhida(fim_intervalo)) < 0
+       (this.funcao(inicio_intervalo) *  this.funcao(fim_intervalo)) < 0
 
 
-  novo_ponto_medio = (a,b) => (a+b) / 2;
+  novo_ponto_medio = (a,b) => parseFloat(((a+b) / 2).toFixed(7));
 
-  f_novo_ponto_medio = ( ponto_medio ) => this.funcao_escolhida( ponto_medio ) ;
+  f_novo_ponto_medio = ( ponto_medio ) => this.funcao( ponto_medio ) ;
 
   atualizarErroAbsoluto = ( c_anterior , c , erro_da_iteracao ) => {
           return Math.abs(c_anterior - c) <= ( erro_da_iteracao  )
   }
 
-  atualizarIntervalor = ( f_a, f_c) =>  (this.funcao_escolhida(f_a) *  f_c ) > 0;
+  atualizarIntervalor = ( f_a, f_c) =>  (this.funcao(f_a) *  f_c ) > 0;
 
   erro_da_iteracao = ( inicio_intervalo , fim_intervalo)  => {
-    return ( (fim_intervalo - inicio_intervalo   ) / 2 )
+    return ( (fim_intervalo - inicio_intervalo   ) / 2 ).toFixed(7);
   }
-
   calcular_precissao = (erro , precisao) =>   erro < precisao
-
 
 }
 
