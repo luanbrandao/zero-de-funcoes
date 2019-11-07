@@ -202,17 +202,17 @@ export class NewtonComponent  {
   }
 
 
-  funcao_escrita = (funcao, x) => {
+  funcao_escrita = (funcao, X) => {
     console.log('escrita aqui');
-    const cos = x => Math.cos(x);
-    const sen = x => Math.sin(x);
-    const pow = (x, y) => Math.pow(x, y)
-    const abs = (x) => Math.abs(x)
-    const sqrt = (x) => Math.sqrt(x)
-    const exp = (x) => Math.exp(x)
-    const cbrt = (x) => Math.cbrt(x)
+    const cos = X => Math.cos(X);
+    const sen = X => Math.sin(X);
+    const pow = (X, y) => Math.pow(X, y)
+    const abs = (X) => Math.abs(X)
+    const sqrt = (X) => Math.sqrt(X)
+    const exp = (X) => Math.exp(X)
+    const cbrt = (X) => Math.cbrt(X)
     // funcao = funcao.replace("E", e);
-    funcao = funcao.replace("x", x);
+    funcao = funcao.replace("X", X);
 
     console.log("funcao =>", funcao)
     return eval(funcao);
