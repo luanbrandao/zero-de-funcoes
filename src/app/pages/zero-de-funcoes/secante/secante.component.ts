@@ -14,17 +14,6 @@ export class SecanteComponent {
 
   funcoes: SelectItem[];
 
-  options = {
-    title: {
-      display: true,
-      text: 'Gráfico',
-      fontSize: 16
-    },
-    legend: {
-      position: 'bottom'
-    }
-  };
-
   entrada = {
     inicio_intervalo: 0,
     fim_intervalo: 0,
@@ -151,11 +140,7 @@ export class SecanteComponent {
       interacao++;
     }
 
-    this.gerar_grafico()
     this.atualizar_status();
-
-
-
   }
 
 
@@ -259,38 +244,6 @@ export class SecanteComponent {
 
   parada_por_precisao = (x, precisao) => Math.abs(x) < precisao
 
-
-  gerar_grafico() {
-
-    this.data = {
-      datasets: [
-        {
-          data: [this.entrada.inicio_intervalo, this.entrada.fim_intervalo]
-        },
-        {
-          data: [
-            this.funcao_escolhida(this.entrada.inicio_intervalo),
-            this.funcao_escolhida(this.entrada.fim_intervalo),
-          ],
-          backgroundColor: ['#FF6347', '#36A2EB', '#FFCE56', , '#FF00FF', '#ADFF2F', '#FFA500'],
-        }
-      ]
-
-    }
-  }
-
-  gerar_grafico_pontos_medios() {
-    this.data2 = {
-      datasets: [
-        {
-          data: this.pontosMedios
-        },
-        {
-          data: this.f_pontosMedios,
-        }
-      ]
-    }
-  }
 
 }
 
