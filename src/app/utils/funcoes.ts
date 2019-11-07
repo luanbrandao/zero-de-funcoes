@@ -11,6 +11,7 @@ export abstract class Funcoes {
     const abs = (x) => Math.abs(x)
     const sqrt = (x) => Math.sqrt(x)
     const exp = (x) => Math.exp(x)
+    const cbrt = (x) => Math.cbrt(x)
 
     const funcao = this._funcaoEscrita.replace("x", x);
     console.log("funcao =>", funcao)
